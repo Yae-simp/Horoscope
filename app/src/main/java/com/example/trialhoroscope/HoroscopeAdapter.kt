@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 
-class HoroscopeAdapter(private val items: List<Horoscope>) : RecyclerView.Adapter<HoroscopeViewHolder>() {
+class HoroscopeAdapter(private val items: List<Horoscope>, val onItemClick: (Int) -> Unit) : RecyclerView.Adapter<HoroscopeViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HoroscopeViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_horoscope, parent, false)
@@ -16,8 +16,10 @@ class HoroscopeAdapter(private val items: List<Horoscope>) : RecyclerView.Adapte
     override fun onBindViewHolder(holder: HoroscopeViewHolder, position: Int) {
         val horoscope = items[position]
         holder.render(horoscope)
+        holder.itemView.setOnClickListener {
+            onItemClick(position)
+        }
     }
 
     override fun getItemCount(): Int = items.size
-
 }
