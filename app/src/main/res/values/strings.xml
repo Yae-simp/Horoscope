@@ -32,5 +32,7 @@
     <string name="horoscope">Horoscope</string>
     <string name="back">Back</string>
     <string name="detail">Detail</string>
+    <string name="menu_fav">menu favorite</string>
+    <string name="menu_share">menu share</string>
 
 </resources>

@@ -2,10 +2,13 @@ package com.example.trialhoroscope
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Html
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
+
+@Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
 
     private lateinit var horoscopeList: List<Horoscope>
@@ -14,8 +17,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_main)
+
+        val actionBar = supportActionBar
+        actionBar!!.title = Html.fromHtml("<font color='#000000'>Horoscope </font>")
 
         recyclerView = findViewById(R.id.recyclerView)
 
