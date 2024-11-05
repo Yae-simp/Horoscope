@@ -7,20 +7,20 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.trialhoroscope.R.id.nameTextView
-import com.example.horoscopo.utils.SessionManager
+import utils.SessionManager
 
 class DetailActivity : AppCompatActivity() {
 
-    //Horoscope I want to visualize
+    //Horoscope to be shown
     private lateinit var horoscope: Horoscope
 
     //Whether horoscope is favorite or not
     private var isFavorite = false
 
-    //Fav menu option for changing icons
+    //Fav menu option for changing the fav icon
     private lateinit var favoriteMenuItem: MenuItem
 
-    //Session manager, saves sav horoscope
+    //Session manager, saves fav horoscope
     private lateinit var session: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +28,7 @@ class DetailActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_on_click)
 
-        //Provides me the id I wanna visualize
+        //Provides the id to visualize
         val id = intent.getStringExtra("horoscope_id")!!
 
         //Looks for the id
@@ -39,7 +39,7 @@ class DetailActivity : AppCompatActivity() {
         supportActionBar?.subtitle = getString(horoscope.dates)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        //Instantiating session object
+        //Instantiates session object
         session = SessionManager(this)
 
         //Revises whether horoscope is fav or not

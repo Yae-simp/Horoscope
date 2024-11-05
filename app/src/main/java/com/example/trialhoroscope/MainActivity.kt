@@ -1,5 +1,6 @@
 package com.example.trialhoroscope
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.text.Html
@@ -26,31 +27,33 @@ class MainActivity : AppCompatActivity() {
         val actionBar = supportActionBar
         actionBar!!.title = Html.fromHtml("<font color='#000000'>Horoscope </font>")
 
-        //Looks for RecyclerView
+        //Looks for RecyclerView in layout
         recyclerView = findViewById(R.id.recyclerView)
 
         //Obtains horoscope list
         horoscopeList = HoroscopeProvider.findAll()
 
-        // Creamos el adapter pasandole la lista de horoscopos y la función lambda para cuando se haga click en uno
+        //Creates adapter, it obtains the list of horoscopes and lambda click function
         adapter = HoroscopeAdapter(horoscopeList) { position: Int ->
             val horoscope = horoscopeList [position]
             navigateToDetail(horoscope)
         }
 
-        // Asignamos el adapter al RecyclerView y le decimos que muestre las celdas verticalmente
+        //Assigns adapter to recyclerView, tells it to display the cells vertically
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onResume() {
         super.onResume()
-        // Refrescamos la lista notificando al adapter de que los datos han cambiado
-        adapter.notifyDataSetChanged() // Esto lo hacemos para que refleje el favorito cuando cambie
+
+        //Refreshes list by notifying adapter of data changes
+        adapter.notifyDataSetChanged() //Reflects changes
     }
 
-    // Navegar a DetailActivity pasandole el id del horóscopo seleccionado
+    //Navigates to DetailActivity by giving it selected horoscope id
     private fun navigateToDetail(horoscope: Horoscope) {
         val intent = Intent(this, DetailActivity::class.java)
         intent.putExtra("horoscope_id", horoscope.id)

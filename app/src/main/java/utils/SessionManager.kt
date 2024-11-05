@@ -1,8 +1,8 @@
-package com.example.horoscopo.utils
+package utils
 
 import android.content.Context
 
-class SessionManager(val context: Context) {
+class SessionManager(context: Context) {
 
     private val prefs = context.getSharedPreferences("horoscope_session", Context.MODE_PRIVATE)
 
@@ -12,7 +12,7 @@ class SessionManager(val context: Context) {
         editor.apply()
     }
 
-    fun getFavorite(): String {
+    private fun getFavorite(): String {
         return prefs.getString("favorite_horoscope", "")!!
     }
 

@@ -8,23 +8,23 @@ import androidx.recyclerview.widget.RecyclerView
 
 class HoroscopeAdapter(private val items: List<Horoscope>, val onItemClick: (Int) -> Unit) : RecyclerView.Adapter<HoroscopeViewHolder>() {
 
-    // Creamos la vista de la celda
+    //Creates cell view
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HoroscopeViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_horoscope, parent, false)
         return HoroscopeViewHolder(view)
     }
 
-    // Rellenamos los datos de la celda cada vez que se va a mostrar
+    //Fills in cell data every time it is going to be displayed
     override fun onBindViewHolder(holder: HoroscopeViewHolder, position: Int) {
         val horoscope = items[position]
         holder.render(horoscope)
 
-        // Utilizamos la funcion lambda cuando se haga click sobre la celda
+        //Lambda cell click function
         holder.itemView.setOnClickListener {
             onItemClick(position)
         }
     }
 
-    // Cuantas celdas va a haber
+    //Cell size
     override fun getItemCount(): Int = items.size
 }
