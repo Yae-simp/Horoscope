@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="5dp"
@@ -25,11 +25,12 @@
             android:src="@drawable/aries_svg"/>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="96dp"
+            android:layout_weight="1"
             android:orientation="vertical"
-            android:paddingVertical="1dp"
-            android:paddingHorizontal="15dp">
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="16dp">
 
             <TextView
                 android:id="@+id/nameTextView"
@@ -42,11 +43,19 @@
             <TextView
                 android:id="@+id/datesTextView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:text="@string/dates"
                 android:textSize="20sp"/>
 
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/favoriteImageView"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_selected_fav"
+            app:tint="#E91E63" />
 
     </LinearLayout>
 
