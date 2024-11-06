@@ -1,10 +1,14 @@
 package com.example.trialhoroscope
 
+
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.text.Html
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -50,7 +54,40 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
 
         //Refreshes list by notifying adapter of data changes
-        adapter.notifyDataSetChanged() //Reflects changes
+        adapter.notifyDataSetChanged() //Reflects fav changes
+    }
+
+    //Shows menu function
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_list_activity, menu)
+
+        //Looks for search option
+        val searchMenuItem: MenuItem = menu?.findItem(R.id.menu_search)!!
+
+        //Obtains actionView class associated with that menu option
+        val searchView: SearchView = searchMenuItem.actionView as SearchView
+
+        //Assigns listener to search
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+
+            //On enter click function
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            //On text change function
+            override fun onQueryTextChange(newText: String?): Boolean {
+
+                //Filters list based on horoscope names and dates
+                horoscopeList = HoroscopeProvider.findAll().filter {
+                    getString(it.name).contains(newText.toString(),true) ||
+                    getString(it.name).contains(newText.toString(),true)
+                }
+                adapter.updateItems(horoscopeList)
+                return true
+            }
+        })
+        return true
     }
 
     //Navigates to DetailActivity by giving it selected horoscope id
