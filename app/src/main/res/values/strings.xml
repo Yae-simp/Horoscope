@@ -26,7 +26,7 @@
     <string name="horoscope_date_capricorn">December 22 to January 19</string>
     <string name="horoscope_date_aquarius">January 20 to February 18</string>
     <string name="horoscope_date_pisces">February 19 to March 20</string>
-    <string name="name">Name</string>
+    <string name="name">Your luck today</string>
     <string name="dates">Dates</string>
     <string name="svg">svg</string>
     <string name="horoscope">Horoscope</string>
@@ -35,4 +35,7 @@
     <string name="menu_fav">menu favorite</string>
     <string name="menu_share">menu share</string>
     <string name="menu_search">Search</string>
+    <string name="menu_daily">Today</string>
+    <string name="menu_weekly">Week</string>
+    <string name="menu_monthly">Month</string>
 </resources>

@@ -9,7 +9,7 @@ import utils.SessionManager
 class HoroscopeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     //Cell visual components
-    private var nameTextView: TextView = view.findViewById(R.id.nameTextView)
+    private var nameTextView: TextView = view.findViewById(R.id.dailyTextView)
     private var datesTextView: TextView = view.findViewById(R.id.datesTextView)
     private var svgImageView: ImageView = view.findViewById(R.id.svgImageView)
     private var favoriteImageView: ImageView = view.findViewById(R.id.favoriteImageView)

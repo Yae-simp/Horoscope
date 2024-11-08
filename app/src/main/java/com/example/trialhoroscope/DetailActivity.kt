@@ -1,13 +1,27 @@
 package com.example.trialhoroscope
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.trialhoroscope.R.id.nameTextView
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.progressindicator.LinearProgressIndicator
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import org.json.JSONObject
 import utils.SessionManager
+import java.io.BufferedReader
+import java.io.InputStream
+import java.io.InputStreamReader
+import java.net.URL
+import javax.net.ssl.HttpsURLConnection
 
 class DetailActivity : AppCompatActivity() {
 
@@ -23,9 +37,16 @@ class DetailActivity : AppCompatActivity() {
     //Session manager, saves fav horoscope
     private lateinit var session: SessionManager
 
+    private var dailyResult:String? = null
+    private lateinit var dailyTextView: TextView
+    private lateinit var svgImageView: ImageView
+    private lateinit var progressIndicator: LinearProgressIndicator
+    private lateinit var navigationBar: BottomNavigationView
+
+
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_on_click)
 
         //Provides the id to visualize
@@ -45,8 +66,29 @@ class DetailActivity : AppCompatActivity() {
         //Revises whether horoscope is fav or not
         isFavorite = session.isFavorite(horoscope.id)
 
-        findViewById<TextView>(nameTextView).setText(horoscope.name)
-        findViewById<ImageView>(R.id.svgImageView).setImageResource(horoscope.image)
+
+        svgImageView = findViewById(R.id.svgImageView)
+        navigationBar = findViewById(R.id.navigationBar)
+        progressIndicator = findViewById(R.id.progressIndicator)
+        dailyTextView = findViewById(R.id.dailyTextView)
+
+        svgImageView.setImageResource(horoscope.image)
+
+        navigationBar.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.menu_daily -> {
+                    getDaily("daily")
+                }
+                R.id.menu_weekly -> {
+                    getDaily("weekly")
+                }
+                R.id.menu_monthly -> {
+                    getDaily("monthly")
+                }
+            }
+            return@setOnItemSelectedListener true
+        }
+        navigationBar.selectedItemId = R.id.menu_daily
     }
 
     //Function to show menu
@@ -82,6 +124,7 @@ class DetailActivity : AppCompatActivity() {
             }
             R.id.menu_share -> {
                 println("Pressed 'share' button.")
+                shareDaily()
                 return true
             }
             else -> {
@@ -89,11 +132,58 @@ class DetailActivity : AppCompatActivity() {
             }
         }
     }
+    private fun shareDaily() {
+        val sendIntent = Intent()
+        sendIntent.action = Intent.ACTION_SEND
+        sendIntent.putExtra(Intent.EXTRA_TEXT, "Check out my daily horoscope result: $dailyResult")
+        sendIntent.type = "text/plain"
+
+        val shareIntent = Intent.createChooser(sendIntent, null)
+        startActivity(shareIntent)
+    }
+
     private fun setFavoriteIcon() {
         if(isFavorite) {
             favoriteMenuItem.setIcon(R.drawable.ic_selected_fav)
         } else {
             favoriteMenuItem.setIcon(R.drawable.ic_fav)
         }
+    }
+
+    private fun getDaily(method: String) {
+        progressIndicator.visibility = View.VISIBLE
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+            val url = URL ("https://horoscope-app-api.vercel.app/api/v1/get-horoscope/$method?sign=${horoscope.id}&day=TODAY")
+            val connection = url.openConnection() as HttpsURLConnection
+            connection.requestMethod = "GET"
+            val responseCode = connection.responseCode
+            Log.i("HTTP", "Response Code :: $responseCode")
+
+            if (responseCode == HttpsURLConnection.HTTP_OK) {
+                val jsonResponse = readStream(connection.inputStream).toString()
+                dailyResult = JSONObject(jsonResponse).getJSONObject ("data").getString("horoscope_data")
+            } else {
+                dailyResult = "Call error"
+            }
+            CoroutineScope(Dispatchers.Main).launch {
+                dailyTextView.text = dailyResult
+                progressIndicator.visibility = View.GONE
+            }
+        } catch (e: Exception) {
+            Log.e("HTTP", "Response Error :: ${e.stackTraceToString()}")
+            }
+        }
+    }
+
+    private fun readStream (inputStream: InputStream) : StringBuilder {
+        val reader = BufferedReader(InputStreamReader(inputStream))
+        val response = StringBuilder()
+        var line: String?
+        while (reader.readLine().also { line = it } != null) {
+            response.append(line)
+        }
+        reader.close()
+        return response
     }
 }

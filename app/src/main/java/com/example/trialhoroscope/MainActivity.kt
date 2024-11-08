@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         horoscopeList = HoroscopeProvider.findAll()
 
         //Creates adapter, it obtains the list of horoscopes and lambda click function
-        adapter = HoroscopeAdapter(horoscopeList) { position: Int ->
+        adapter = HoroscopeAdapter(horoscopeList) { position ->
             val horoscope = horoscopeList [position]
             navigateToDetail(horoscope)
         }

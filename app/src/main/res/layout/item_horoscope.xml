@@ -34,7 +34,7 @@
             android:paddingHorizontal="16dp">
 
             <TextView
-                android:id="@+id/nameTextView"
+                android:id="@+id/dailyTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/name"
@@ -47,9 +47,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/dates"
                 android:textSize="21sp"
-                android:autoSizeTextType="uniform"
-                android:autoSizeMaxTextSize="22sp"
-                android:autoSizeMinTextSize="14sp"/>
+                android:autoSizeTextType="uniform" />
 
         </LinearLayout>
 
