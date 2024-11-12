@@ -1,4 +1,6 @@
-package com.example.trialhoroscope
+package com.example.trialhoroscope.data
+
+import com.example.trialhoroscope.R
 
 class Horoscope (val id: String, val name: Int, val dates: Int, val image: Int) {}
 

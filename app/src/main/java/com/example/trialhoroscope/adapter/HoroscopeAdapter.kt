@@ -1,10 +1,12 @@
-package com.example.trialhoroscope
+package com.example.trialhoroscope.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.trialhoroscope.data.Horoscope
+import com.example.trialhoroscope.R
 
 
 class HoroscopeAdapter(private var items: List<Horoscope>, val onItemClick: (Int) -> Unit) : RecyclerView.Adapter<HoroscopeViewHolder>() {

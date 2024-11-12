@@ -1,9 +1,11 @@
-package com.example.trialhoroscope
+package com.example.trialhoroscope.adapter
 
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.trialhoroscope.data.Horoscope
+import com.example.trialhoroscope.R
 import utils.SessionManager
 
 class HoroscopeViewHolder(view: View) : RecyclerView.ViewHolder(view) {

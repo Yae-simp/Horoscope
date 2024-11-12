@@ -1,4 +1,4 @@
-package com.example.trialhoroscope
+package com.example.trialhoroscope.activities
 
 
 import android.annotation.SuppressLint
@@ -11,6 +11,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.trialhoroscope.data.Horoscope
+import com.example.trialhoroscope.adapter.HoroscopeAdapter
+import com.example.trialhoroscope.data.HoroscopeProvider
+import com.example.trialhoroscope.R
 
 
 @Suppress("DEPRECATION")

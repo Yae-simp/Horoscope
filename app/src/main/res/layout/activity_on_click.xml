@@ -8,7 +8,7 @@ android:orientation="vertical"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
     android:background="@color/white"
-tools:context=".DetailActivity">
+tools:context=".activities.DetailActivity">
 
 <ImageView
     android:id="@+id/svgImageView"
@@ -50,9 +50,10 @@ tools:context=".DetailActivity">
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:justificationMode="inter_word"
-            android:padding="16dp"
+            android:padding="23dp"
             android:textSize="20sp"
             app:layout_constraintTop_toBottomOf="@menu/menu_activity_detail_navigation"
+            android:lineSpacingExtra="4dp"
             tools:text="Info" />
 
     </ScrollView>
